@@ -1,14 +1,14 @@
 "use strict";
 
-const http = require("http");
-const express = require("express");
-const socketIO = require("socket.io");
+// const http = require("http");
+// const express = require("express");
+// const socketIO = require("socket.io");
 
-const app = express();
-const server = http.createServer(app);
+// const app = express();
+// const server = http.createServer(app);
 
-var path = require("path");
-var logger = require("morgan");
+// var path = require("path");
+// var logger = require("morgan");
 var console = require("console");
 // var papa = require('papaparse');
 var fs = require("fs");
@@ -121,12 +121,12 @@ initializers.set(app);
 
 // controllers.set(app, server, grpcClientWrapper);
 
-console.log("Server listening 9090");
-server.listen(9090);
-const socket = socketIO(server, { origins: "*:*" });
-socket.on("connection", () => {
-  console.log("Server: socket connected!!");
-  socket.emit("connected", "Hello from server");
-});
+// console.log("Server listening 9090");
+// server.listen(9090);
+// const socket = socketIO(server, { origins: "*:*" });
+// socket.on("connection", () => {
+//   console.log("Server: socket connected!!");
+//   socket.emit("connected", "Hello from server");
+// });
 
 // module.exports = app;

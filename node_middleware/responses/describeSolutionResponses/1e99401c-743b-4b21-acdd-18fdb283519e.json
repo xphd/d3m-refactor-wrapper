@@ -1,12 +1,12 @@
 {
   "pipeline": {
-    "id": "5a086a65-d495-4253-995e-5a4fb968e1fe",
+    "id": "1e99401c-743b-4b21-acdd-18fdb283519e",
     "source": {
       "name": "TAMU PipelineGenerator",
       "contact": "mailto:dmartinez05@tamu.edu",
       "pipelines": []
     },
-    "created": { "seconds": "1541430060", "nanos": 747277000 },
+    "created": { "seconds": "1541430099", "nanos": 393132000 },
     "context": "TESTING",
     "name": "Simple PseudoRandom Pipeline",
     "description": "Simple pipeline generated TAMU PipelineGenerator",
@@ -288,10 +288,10 @@
         "step": "primitive",
         "primitive": {
           "primitive": {
-            "id": "adf13b4b-9fe5-38a2-a1ea-d1b1cc342576",
+            "id": "1b2a32a6-0ec5-3ca0-9386-b8b1f1b831d1",
             "version": "2018.7.11",
-            "python_path": "d3m.primitives.sklearn_wrap.SKMultinomialNB",
-            "name": "sklearn.naive_bayes.MultinomialNB",
+            "python_path": "d3m.primitives.sklearn_wrap.SKBaggingClassifier",
+            "name": "sklearn.ensemble.bagging.BaggingClassifier",
             "digest": "cd4c87f31b4a6a81124829cb791aed17448b7bb7629a909dbaedd4b41b85dba3"
           },
           "arguments": {
