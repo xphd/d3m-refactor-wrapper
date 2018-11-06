@@ -18,14 +18,6 @@ export default {
   components: {
     FlowChart
   }
-  // sockets: {
-  //   connect() {
-  //     console.log("Client: try to connect!");
-  //   },
-  //   connected: function(data) {
-  //     console.log(data);
-  //   }
-  // }
 };
 </script>
 
