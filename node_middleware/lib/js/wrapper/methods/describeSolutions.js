@@ -58,6 +58,10 @@ function describeSolution(solution) {
       if (err) {
         reject(err);
       } else {
+        console.log("PipelineDescription Begin");
+        console.log(describeSolutionResponse);
+        console.log("END");
+
         // this is a PipelineDescription message
         let pipeline = describeSolutionResponse.pipeline;
         // console.log(pipeline);

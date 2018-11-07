@@ -1,10 +1,10 @@
 "use strict";
 
 // const http = require("http");
-// const express = require("express");
+const express = require("express");
 // const socketIO = require("socket.io");
 
-// const app = express();
+const app = express();
 // const server = http.createServer(app);
 
 // var path = require("path");
@@ -65,7 +65,7 @@ var grpcConfig = require(appRoot + "/lib/js/grpc_client_wrapper.js");
 var grpcClientWrapper = null;
 if (evaluationConfig.running_mode != "development") {
   // console.log("connecting to ta2");
-  let ta2ConnectionString = "localhost:50057"; // FL
+  let ta2ConnectionString = "localhost:50052"; // FL
   // let ta2ConnectionString = 'localhost:45042' // MOCK
   // let ta2ConnectionString = 'localhost:50052' // TAMU
   if ("TA2_PORT" in process.env) {
