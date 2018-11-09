@@ -4,10 +4,6 @@ const appRoot = require("app-root-path");
 const PROTO_PATH = appRoot + "/lib/js" + "/protos/v2018.7.7/core.proto";
 
 const properties = require("./properties");
-// const client = require("./properties/client");
-// const proto = require("./properties/proto");
-// const sessionVar = require("./properties/sessionVar");
-// const staticVar = require("./properties/staticVar");
 
 const helloLoop = require("./methods/helloLoop");
 // const searchSolutions = require("./methods/searchSolutions");
@@ -20,10 +16,7 @@ const helloLoop = require("./methods/helloLoop");
 
 class Wrapper {
   constructor() {
-    this.client = properties.client;
-    this.proto = properties.proto;
-    this.sessionVar = properties.sessionVar;
-    this.staticVar = properties.staticVar;
+    this.properties = properties;
 
     this.helloLoop = helloLoop;
     //     this.searchSolutions = searchSolutions;
@@ -36,8 +29,8 @@ class Wrapper {
   }
   connect(ta2_url) {
     console.log("Connect to:" + ta2_url);
-    properties.proto = grpc.load(PROTO_PATH);
-    let proto = properties.proto;
+    let proto = grpc.load(PROTO_PATH);
+    properties.proto = proto;
     properties.client = new proto.Core(
       ta2_url,
       grpc.credentials.createInsecure()
