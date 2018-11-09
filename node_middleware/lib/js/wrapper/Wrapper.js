@@ -19,22 +19,20 @@ class Wrapper {
     this.properties = properties;
 
     this.helloLoop = helloLoop;
-    //     this.searchSolutions = searchSolutions;
-    //     this.fitSolutions = fitSolutions;
-    //     this.produceSolutions = produceSolutions;
-    //     this.scoreSolutions = scoreSolutions;
-    //     this.exportFittedSolution = exportFittedSolution;
-    //     this.endSearchSolutions = endSearchSolutions;
-    //     this.describeSolutions = describeSolutions;
+    // this.searchSolutions = searchSolutions;
+    // this.fitSolutions = fitSolutions;
+    // this.produceSolutions = produceSolutions;
+    // this.scoreSolutions = scoreSolutions;
+    // this.exportFittedSolution = exportFittedSolution;
+    // this.endSearchSolutions = endSearchSolutions;
+    // this.describeSolutions = describeSolutions;
   }
   connect(ta2_url) {
     console.log("Connect to:" + ta2_url);
     let proto = grpc.load(PROTO_PATH);
+    let client = new proto.Core(ta2_url, grpc.credentials.createInsecure());
     properties.proto = proto;
-    properties.client = new proto.Core(
-      ta2_url,
-      grpc.credentials.createInsecure()
-    );
+    properties.client = client;
   }
 }
 

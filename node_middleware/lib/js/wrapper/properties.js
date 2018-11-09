@@ -1,6 +1,6 @@
 const properties = {
-  client: {},
-  proto: {},
+  client: null,
+  proto: null,
   sessionVar: {
     ta2Ident: null,
     connected: false,
