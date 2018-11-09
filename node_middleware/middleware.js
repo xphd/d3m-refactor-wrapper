@@ -60,12 +60,14 @@ evaluationConfig.user_problem_root =
   evaluationConfig.user_problem_root || "/output/problems";
 
 // Load the grpc client wrapper
-// var grpcConfig = require(appRoot + '/lib/js/grpc_client_wrapper.js');
-var grpcConfig = require(appRoot + "/lib/js/grpc_client_wrapper.js");
-var grpcClientWrapper = null;
+
+// var grpcConfig = require(appRoot + "/lib/js/grpc_client_wrapper.js");
+const Wrapper = require("./lib/js/wrapper/Wrapper");
+// var grpcClientWrapper = null;
+const grpcClientWrapper = new Wrapper();
 if (evaluationConfig.running_mode != "development") {
   // console.log("connecting to ta2");
-  let ta2ConnectionString = "localhost:50052"; // FL
+  let ta2ConnectionString = "localhost:50051"; // FL
   // let ta2ConnectionString = 'localhost:45042' // MOCK
   // let ta2ConnectionString = 'localhost:50052' // TAMU
   if ("TA2_PORT" in process.env) {
@@ -74,7 +76,8 @@ if (evaluationConfig.running_mode != "development") {
   }
   // console.log("ta2 connection string: ", ta2ConnectionString);
   // console.log(grpcConfig);
-  grpcClientWrapper = grpcConfig.connect(ta2ConnectionString);
+  // grpcClientWrapper = grpcConfig.connect(ta2ConnectionString);
+  grpcClientWrapper.connect(ta2ConnectionString);
 
   function exit() {
     console.log("exiting...");
@@ -82,23 +85,24 @@ if (evaluationConfig.running_mode != "development") {
   }
 
   console.log("BACKEND STARTED IN INTEGRATION TEST MODE");
-  grpcClientWrapper
-    .helloLoop()
-    .then(grpcClientWrapper.searchSolutions)
-    .then(grpcClientWrapper.scoreSolutions)
-    .then(grpcClientWrapper.describeSolutions)
-    .then(grpcClientWrapper.fitSolutions)
-    .then(grpcClientWrapper.produceSolutions)
-    .then(grpcClientWrapper.endSearchSolutions)
-    .then(function(context) {
-      return new Promise(function(fulfill, reject) {
-        console.log("FINAL RESULT", context);
-        fulfill();
-      });
-    })
-    // test api, then exit container
-    .then(exit)
-    .catch(err => console.log("ERROR!", err));
+  grpcClientWrapper.helloLoop();
+  // grpcClientWrapper
+  //   .helloLoop()
+  //   .then(grpcClientWrapper.searchSolutions)
+  //   .then(grpcClientWrapper.scoreSolutions)
+  //   .then(grpcClientWrapper.describeSolutions)
+  //   .then(grpcClientWrapper.fitSolutions)
+  //   .then(grpcClientWrapper.produceSolutions)
+  //   .then(grpcClientWrapper.endSearchSolutions)
+  //   .then(function(context) {
+  //     return new Promise(function(fulfill, reject) {
+  //       console.log("FINAL RESULT", context);
+  //       fulfill();
+  //     });
+  //   })
+  //   // test api, then exit container
+  //   .then(exit)
+  //   .catch(err => console.log("ERROR!", err));
 }
 
 //Tabular data pre-processing fire

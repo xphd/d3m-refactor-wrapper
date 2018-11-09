@@ -3,13 +3,22 @@ const fse = require("fs-extra");
 const grpc = require("grpc");
 
 // import variables
-const attributes = require("../attributes");
-const static = attributes.static;
-const dynamic = attributes.dynamic;
+// const attributes = require("../attributes");
+// const static = attributes.static;
+// const dynamic = attributes.dynamic;
 // static variables
-const proto = static.proto;
+// const proto = static.proto;
+
+const properties = require("../properties");
+// const client = properties.client;
+// const proto = properties.proto;
+// const sessionVar = properties.sessionVar;
 
 helloLoop = function() {
+  const client = properties.client;
+  const proto = properties.proto;
+  const sessionVar = properties.sessionVar;
+
   console.log("helloLoop");
   // Added by Alex, for the purpose of Pipeline Visulization
   let pathPrefix = "responses/";
@@ -21,20 +30,20 @@ helloLoop = function() {
   fs.mkdirSync(pathPrefix);
 
   return new Promise(function(fulfill, reject) {
-    const connectionString = dynamic.connectionString;
-    console.log("connectionString:", connectionString);
-    dynamic.client = new proto.Core(
-      connectionString,
-      grpc.credentials.createInsecure()
-    );
-
+    // const connectionString = dynamic.connectionString;
+    // console.log("connectionString:", connectionString);
+    // dynamic.client = new proto.Core(
+    //   connectionString,
+    //   grpc.credentials.createInsecure()
+    // );
+    // console.log(properties.proto);
     let request = new proto.HelloRequest();
     let waiting = false;
     setInterval(function() {
-      const sessionVar = dynamic.sessionVar;
+      // const sessionVar = dynamic.sessionVar;
       if (waiting || sessionVar.connected) return;
       waiting = true;
-      const client = dynamic.client;
+      // const client = dynamic.client;
       client.Hello(request, function(err, response) {
         if (err) {
           console.log("Error!Hello", err);
