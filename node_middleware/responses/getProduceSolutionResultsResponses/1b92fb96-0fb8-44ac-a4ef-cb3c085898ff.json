@@ -1,0 +1,21 @@
+{
+  "progress": {
+    "state": "COMPLETED",
+    "status": "",
+    "start": { "seconds": "1541823474", "nanos": 203841000 },
+    "end": { "seconds": "1541823476", "nanos": 382718000 }
+  },
+  "steps": [],
+  "exposed_outputs": {
+    "steps.0.produce": {
+      "value": "csv_uri",
+      "error": null,
+      "raw": null,
+      "dataset_uri": "",
+      "csv_uri": "file:///output/predictions/b450e940-2981-4f1a-9fae-215bc882604b/1b92fb96-0fb8-44ac-a4ef-cb3c085898ff.steps.0.produce.csv",
+      "pickle_uri": "",
+      "pickle_blob": { "type": "Buffer", "data": [] },
+      "plasma_id": { "type": "Buffer", "data": [] }
+    }
+  }
+}
