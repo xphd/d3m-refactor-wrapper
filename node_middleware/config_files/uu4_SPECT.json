@@ -1,0 +1,13 @@
+{
+  "problem_schema": "static/local_testing_data/uu4_SPECT/uu4_SPECT_problem/problemDoc.json",
+  "problem_root": "static/local_testing_data/uu4_SPECT/uu4_SPECT_problem",
+  "dataset_schema": "static/local_testing_data/uu4_SPECT/uu4_SPECT_dataset/datasetDoc.json",
+  "training_data_root": "static/local_testing_data/uu4_SPECT/uu4_SPECT_dataset",
+  "pipeline_logs_root": "/output/logs",
+  "executables_root": "/output/executables",
+  "temp_storage_root": "/output",
+  "user_problems_root": "/output/problems",
+  "timeout": 60,
+  "cpus": "32",
+  "ram": "16Gi"
+}
