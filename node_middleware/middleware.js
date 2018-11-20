@@ -8,7 +8,7 @@ const Wrapper = require("./Wrapper/Wrapper");
 
 const grpcClientWrapper = new Wrapper();
 
-const configFilePath = "./config_files/30_personae.json";
+const configFilePath = "./config_files/185_baseball.json";
 
 //rewrite config file if necessary
 var tinyconf = require("./lib/js/vendor/tinyconf");

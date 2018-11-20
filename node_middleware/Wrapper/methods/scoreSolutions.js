@@ -74,7 +74,7 @@ function scoreSolution(solution) {
   );
   scoreSolutionRequest.setInputs(dataset_input);
 
-  const problemSchema = getProblemSchema();
+  const problemSchema = getProblemSchema(evaluationConfig);
 
   let metrics = problemSchema.inputs.performanceMetrics.map(d => d.metric);
   let mapped_metrics = metrics.map(metric =>
