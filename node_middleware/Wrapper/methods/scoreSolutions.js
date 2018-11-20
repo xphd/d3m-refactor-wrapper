@@ -2,8 +2,7 @@
 // getScoreSolutionResultsResponse
 const fs = require("fs");
 const _ = require("lodash");
-const appRoot = require("app-root-path");
-const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
+
 // import variables
 const properties = require("../properties");
 const proto = properties.proto;
@@ -68,12 +67,14 @@ function scoreSolution(solution) {
   scoreSolutionRequest.setSolutionId(solution.solutionID);
 
   let dataset_input = new proto.Value();
+
+  const evaluationConfig = properties.evaluationConfig;
   dataset_input.setDatasetUri(
     "file://" + handleImageUrl(evaluationConfig.dataset_schema)
   );
   scoreSolutionRequest.setInputs(dataset_input);
 
-  const problemSchema = getProblemSchema();
+  const problemSchema = getProblemSchema(evaluationConfig);
 
   let metrics = problemSchema.inputs.performanceMetrics.map(d => d.metric);
   let mapped_metrics = metrics.map(metric =>

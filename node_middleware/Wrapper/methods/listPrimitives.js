@@ -1,8 +1,7 @@
 // // searchSolutionsResponse
 // // getSearchSolutionsResultsResponse
 // const fs = require("fs");
-// const appRoot = require("app-root-path");
-// const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
+
 // // import variables
 // const attributes = require("../attributes");
 // const static = attributes.static;

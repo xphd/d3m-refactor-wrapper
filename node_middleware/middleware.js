@@ -8,10 +8,12 @@ const Wrapper = require("./Wrapper/Wrapper");
 
 const grpcClientWrapper = new Wrapper();
 
+const configFilePath = "./config_files/185_baseball.json";
+
 //rewrite config file if necessary
 var tinyconf = require("./lib/js/vendor/tinyconf");
 try {
-  var configPaths = [require.resolve("./27_wordLevels.json")];
+  var configPaths = [require.resolve(configFilePath)];
   //avoid require to read in json to avoid complications with caching at this point
   tinyconf(
     process.argv,
@@ -21,14 +23,12 @@ try {
   );
 } catch (err) {
   console.log("no fallback config file found", err);
-  tinyconf(process.argv, "static/local_testing_data/", {}, [
-    "./27_wordLevels.json"
-  ]);
+  tinyconf(process.argv, "static/local_testing_data/", {}, [configFilePath]);
 }
 
 // var child_process = require("child_process");
 
-var evaluationConfig = require("./27_wordLevels.json");
+var evaluationConfig = require(configFilePath);
 
 evaluationConfig.user_problem_root =
   evaluationConfig.user_problem_root || "/output/problems";
@@ -52,7 +52,7 @@ if (evaluationConfig.running_mode != "development") {
   // console.log(grpcConfig);
   // grpcClientWrapper = grpcConfig.connect(ta2ConnectionString);
   grpcClientWrapper.connect(ta2ConnectionString);
-
+  grpcClientWrapper.setEvaluationConfig(evaluationConfig);
   function exit() {
     console.log("exiting...");
     process.exit();
