@@ -3,6 +3,7 @@ const appRoot = require("app-root-path");
 const PROTO_PATH = appRoot + "/lib/js/protos/v2018.7.7/core.proto";
 
 const properties = {
+  evaluationConfig: null,
   client: null,
   proto: grpc.load(PROTO_PATH),
   sessionVar: {

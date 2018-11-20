@@ -2,8 +2,7 @@
 // getProduceSolutionResultsResponse
 
 const fs = require("fs");
-const appRoot = require("app-root-path");
-const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
+
 // import variables
 const properties = require("../properties");
 const proto = properties.proto;
@@ -53,6 +52,7 @@ function produceSolution(solution, sessionVar) {
   let produceSolutionRequest = new proto.ProduceSolutionRequest();
   produceSolutionRequest.setFittedSolutionId(solution.fit.fitID);
   let dataset_input = new proto.Value();
+  const evaluationConfig = properties.evaluationConfig;
   dataset_input.setDatasetUri(
     "file://" + handleImageUrl(evaluationConfig.dataset_schema)
   );

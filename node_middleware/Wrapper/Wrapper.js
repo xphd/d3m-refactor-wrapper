@@ -30,6 +30,9 @@ class Wrapper {
     let client = new proto.Core(ta2_url, grpc.credentials.createInsecure());
     properties.client = client;
   }
+  setEvaluationConfig(evaluationConfig) {
+    properties.evaluationConfig = evaluationConfig;
+  }
 }
 
 module.exports = Wrapper;

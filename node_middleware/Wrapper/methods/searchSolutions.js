@@ -2,7 +2,7 @@
 // getSearchSolutionsResultsResponse
 const fs = require("fs");
 const appRoot = require("app-root-path");
-const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
+
 // import properties
 const properties = require("../properties");
 const proto = properties.proto;
@@ -21,7 +21,8 @@ const task_type_mappings = require("../mappings/task_type_mappings");
 searchSolutions = function(sessionVar) {
   // remove old solutions
   sessionVar.solutions = new Map();
-  const problemSchema = getProblemSchema();
+  const evaluationConfig = properties.evaluationConfig;
+  const problemSchema = getProblemSchema(evaluationConfig);
   // console.log(problemSchema.about.problemID);
   return new Promise(function(fulfill, reject) {
     let request = new proto.SearchSolutionsRequest();
@@ -95,6 +96,8 @@ searchSolutions = function(sessionVar) {
     }
     problem_desc.setInputs(inputs);
     let dataset_input = new proto.Value();
+    console.log("inside return");
+    console.log(evaluationConfig.dataset_schema);
     dataset_input.setDatasetUri(
       "file://" + handleImageUrl(evaluationConfig.dataset_schema)
     );
