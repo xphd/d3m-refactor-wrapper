@@ -8,10 +8,12 @@ const Wrapper = require("./Wrapper/Wrapper");
 
 const grpcClientWrapper = new Wrapper();
 
+const configFilePath = "./config_files/30_personae.json";
+
 //rewrite config file if necessary
 var tinyconf = require("./lib/js/vendor/tinyconf");
 try {
-  var configPaths = [require.resolve("./tufts_gt_wisc_configuration.json")];
+  var configPaths = [require.resolve(configFilePath)];
   //avoid require to read in json to avoid complications with caching at this point
   tinyconf(
     process.argv,
@@ -21,14 +23,12 @@ try {
   );
 } catch (err) {
   console.log("no fallback config file found", err);
-  tinyconf(process.argv, "static/local_testing_data/", {}, [
-    "./tufts_gt_wisc_configuration.json"
-  ]);
+  tinyconf(process.argv, "static/local_testing_data/", {}, [configFilePath]);
 }
 
 // var child_process = require("child_process");
 
-var evaluationConfig = require("./tufts_gt_wisc_configuration.json");
+var evaluationConfig = require(configFilePath);
 
 evaluationConfig.user_problem_root =
   evaluationConfig.user_problem_root || "/output/problems";

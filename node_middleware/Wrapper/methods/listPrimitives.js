@@ -1,7 +1,6 @@
 // // searchSolutionsResponse
 // // getSearchSolutionsResultsResponse
 // const fs = require("fs");
-// const appRoot = require("app-root-path");
 
 // // import variables
 // const attributes = require("../attributes");
