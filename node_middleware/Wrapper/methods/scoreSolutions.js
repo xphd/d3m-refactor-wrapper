@@ -1,13 +1,18 @@
-// scoreSolutionResponse
-// getScoreSolutionResultsResponse
 const fs = require("fs");
 const _ = require("lodash");
+const appRoot = require("app-root-path");
+const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 // import variables
 const properties = require("../properties");
-const proto = properties.proto;
+const static = properties.static;
+const dynamic = properties.dynamic;
+// proto
+const proto = static.proto;
+
 // import mappings
 const metric_mappings = require("../mappings/metric_mappings");
+
 // import functions
 const getMappedType = require("../functions/getMappedType");
 const getProblemSchema = require("../functions/getProblemSchema");
@@ -62,19 +67,16 @@ scoreSolutions = function(sessionVar) {
 
 function scoreSolution(solution) {
   console.log("scoring solution with id", solution.solutionID);
-
   let scoreSolutionRequest = new proto.ScoreSolutionRequest();
   scoreSolutionRequest.setSolutionId(solution.solutionID);
 
   let dataset_input = new proto.Value();
-
-  const evaluationConfig = properties.evaluationConfig;
   dataset_input.setDatasetUri(
     "file://" + handleImageUrl(evaluationConfig.dataset_schema)
   );
   scoreSolutionRequest.setInputs(dataset_input);
 
-  const problemSchema = getProblemSchema(evaluationConfig);
+  const problemSchema = getProblemSchema();
 
   let metrics = problemSchema.inputs.performanceMetrics.map(d => d.metric);
   let mapped_metrics = metrics.map(metric =>
@@ -108,26 +110,27 @@ function scoreSolution(solution) {
   scoreSolutionRequest.setConfiguration(scoringConfiguration);
 
   return new Promise(function(fulfill, reject) {
-    properties.client.scoreSolution(
-      scoreSolutionRequest,
-      (err, scoreSolutionResponse) => {
-        if (err) {
-          reject(err);
-        } else {
-          let scoreRequestID = scoreSolutionResponse.request_id;
+    const client = dynamic.client;
+    client.scoreSolution(scoreSolutionRequest, function(
+      err,
+      scoreSolutionResponse
+    ) {
+      if (err) {
+        reject(err);
+      } else {
+        let scoreRequestID = scoreSolutionResponse.request_id;
 
-          // Added by Alex, for the purpose of Pipeline Visulization
-          let pathPrefix = "responses/scoreSolutionResponses/";
-          let pathMid = scoreRequestID;
-          let pathAffix = ".json";
-          let path = pathPrefix + pathMid + pathAffix;
-          let responseStr = JSON.stringify(scoreSolutionResponse);
-          fs.writeFileSync(path, responseStr);
+        // Added by Alex, for the purpose of Pipeline Visulization
+        let pathPrefix = "responses/scoreSolutionResponses/";
+        let pathMid = scoreRequestID;
+        let pathAffix = ".json";
+        let path = pathPrefix + pathMid + pathAffix;
+        let responseStr = JSON.stringify(scoreSolutionResponse);
+        fs.writeFileSync(path, responseStr);
 
-          getScoreSolutionResults(solution, scoreRequestID, fulfill, reject);
-        }
+        getScoreSolutionResults(solution, scoreRequestID, fulfill, reject);
       }
-    );
+    });
   });
 }
 
@@ -136,11 +139,8 @@ function getScoreSolutionResults(solution, scoreRequestID, fulfill, reject) {
   let _reject = reject;
   let getScoreSolutionResultsRequest = new proto.GetScoreSolutionResultsRequest();
   getScoreSolutionResultsRequest.setRequestId(scoreRequestID);
-
-  let call = properties.client.getScoreSolutionResults(
-    getScoreSolutionResultsRequest
-  );
-
+  const client = dynamic.client;
+  let call = client.getScoreSolutionResults(getScoreSolutionResultsRequest);
   call.on("data", function(getScoreSolutionResultsResponse) {
     if (getScoreSolutionResultsResponse.progress.state === "COMPLETED") {
       // console.log("scoreSolutionResultsResponse", getScoreSolutionResultsResponse);
@@ -171,6 +171,7 @@ function getScoreSolutionResults(solution, scoreRequestID, fulfill, reject) {
         getScoreSolutionResultsResponse
       );
     }
+
     // Added by Alex, for the purpose of Pipeline Visulization
     let pathPrefix = "responses/getScoreSolutionResultsResponses/";
     let pathMid = scoreRequestID;

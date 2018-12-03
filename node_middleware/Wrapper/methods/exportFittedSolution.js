@@ -1,10 +1,11 @@
-// solutionExportResponse
-
 const fs = require("fs");
 
-// import properties
+// import variables
 const properties = require("../properties");
-const proto = properties.proto;
+const static = properties.static;
+const dynamic = properties.dynamic;
+// static variables
+const proto = static.proto;
 
 exportFittedSolution = function(sessionVar, solutionID) {
   console.log("export fitted solution", solutionID);
@@ -15,18 +16,18 @@ exportFittedSolution = function(sessionVar, solutionID) {
     sessionVar.solutions.get(solutionID).fit.fitID
   );
   solutionExportRequest.setRank(rank);
-  properties.client.solutionExport(
-    solutionExportRequest,
-    solutionExportResponse => {
-      // no content specified for this message
-      console.log("solution exported");
+  const client = dynamic.client;
+  client.solutionExport(solutionExportRequest, function(
+    solutionExportResponse
+  ) {
+    // no content specified for this message
+    console.log("solution exported");
 
-      // Added by Alex, for the purpose of Pipeline Visulization
-      let path = "responses/solutionExportResponse.json";
-      let responseStr = JSON.stringify(solutionExportResponse);
-      fs.writeFileSync(path, responseStr);
-    }
-  );
+    // Added by Alex, for the purpose of Pipeline Visulization
+    let path = "responses/solutionExportResponse.json";
+    let responseStr = JSON.stringify(solutionExportResponse);
+    fs.writeFileSync(path, responseStr);
+  });
 };
 
 module.exports = exportFittedSolution;

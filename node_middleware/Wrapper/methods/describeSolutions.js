@@ -1,8 +1,11 @@
 const fs = require("fs");
 
-// import properties
+// import variables
 const properties = require("../properties");
-const proto = properties.proto;
+const static = properties.static;
+const dynamic = properties.dynamic;
+// static variables
+const proto = static.proto;
 
 describeSolutions = function(sessionVar) {
   console.log("describeSolutions called");
@@ -47,40 +50,37 @@ function describeSolution(solution) {
   }
 
   return new Promise(function(fulfill, reject) {
-    properties.client.describeSolution(
-      describeSolutionRequest,
-      (err, describeSolutionResponse) => {
-        if (err) {
-          reject(err);
-        } else {
-          console.log("PipelineDescription Begin");
-          console.log(describeSolutionResponse);
-          console.log("END");
+    const client = dynamic.client;
+    client.describeSolution(describeSolutionRequest, function(
+      err,
+      describeSolutionResponse
+    ) {
+      if (err) {
+        reject(err);
+      } else {
+        // this is a PipelineDescription message
+        let pipeline = describeSolutionResponse.pipeline;
+        // console.log(pipeline);
+        let outputs = pipeline.outputs;
+        console.log(outputs);
+        let finalOutput = outputs[outputs.length - 1].data;
+        console.log(
+          "selecting final output for ",
+          solution.solutionID,
+          finalOutput
+        );
+        solution.finalOutput = finalOutput;
+        fulfill(solution);
 
-          // this is a PipelineDescription message
-          let pipeline = describeSolutionResponse.pipeline;
-          // console.log(pipeline);
-          let outputs = pipeline.outputs;
-          console.log(outputs);
-          let finalOutput = outputs[outputs.length - 1].data;
-          console.log(
-            "selecting final output for ",
-            solution.solutionID,
-            finalOutput
-          );
-          solution.finalOutput = finalOutput;
-          fulfill(solution);
-
-          // Added by Alex, for the purpose of Pipeline Visulization
-          let pathPrefix = "responses/describeSolutionResponses/";
-          let pathMid = solution.solutionID;
-          let pathAffix = ".json";
-          let path = pathPrefix + pathMid + pathAffix;
-          let responseStr = JSON.stringify(describeSolutionResponse);
-          fs.writeFileSync(path, responseStr);
-        }
+        // Added by Alex, for the purpose of Pipeline Visulization
+        let pathPrefix = "responses/describeSolutionResponses/";
+        let pathMid = solution.solutionID;
+        let pathAffix = ".json";
+        let path = pathPrefix + pathMid + pathAffix;
+        let responseStr = JSON.stringify(describeSolutionResponse);
+        fs.writeFileSync(path, responseStr);
       }
-    );
+    });
   });
 }
 

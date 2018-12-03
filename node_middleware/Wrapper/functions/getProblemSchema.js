@@ -1,18 +1,17 @@
-// const appRoot = require("app-root-path");
-// const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
+const appRoot = require("app-root-path");
+const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 const handleUrl = require("./handleUrl");
 
-function getProblemSchema(evaluationConfig) {
+function getProblemSchema() {
   var problemSchema = {};
   try {
-    console.log("getProblemSchema");
-    console.log(evaluationConfig.problem_schema);
+    console.log(evaluationConfig.problem_schema)
     problemSchema = require(handleUrl(evaluationConfig.problem_schema));
   } catch (err) {
-    console.log("warning: no problem schema file available");
+    console.log("warning: no problem schema file available");    
   }
   return problemSchema;
-}
+};
 
 module.exports = getProblemSchema;

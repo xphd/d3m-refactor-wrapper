@@ -3,9 +3,9 @@
 // const fs = require("fs");
 
 // // import variables
-// const attributes = require("../attributes");
-// const static = attributes.static;
-// const dynamic = attributes.dynamic;
+// const properties = require("../properties");
+// const static = properties.static;
+// const dynamic = properties.dynamic;
 // // static variables
 // const proto = static.proto;
 // const userAgentTA3 = static.userAgentTA3;

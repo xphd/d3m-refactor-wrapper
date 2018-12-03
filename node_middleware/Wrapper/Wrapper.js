@@ -1,7 +1,6 @@
 const grpc = require("grpc");
 
-const properties = require("./properties");
-
+// import all methods
 const helloLoop = require("./methods/helloLoop");
 const searchSolutions = require("./methods/searchSolutions");
 const fitSolutions = require("./methods/fitSolutions");
@@ -11,28 +10,31 @@ const exportFittedSolution = require("./methods/exportFittedSolution");
 const endSearchSolutions = require("./methods/endSearchSolutions");
 const describeSolutions = require("./methods/describeSolutions");
 
-class Wrapper {
-  constructor() {
-    this.properties = properties;
+const properties = require("./properties");
+// const connect = require("./wrapper/connect");
+const problemSetSerachSolutionRequest = require("./problemSetSerachSolutionRequest");
 
-    this.helloLoop = helloLoop;
-    this.searchSolutions = searchSolutions;
-    this.fitSolutions = fitSolutions;
-    this.produceSolutions = produceSolutions;
-    this.scoreSolutions = scoreSolutions;
-    this.exportFittedSolution = exportFittedSolution;
-    this.endSearchSolutions = endSearchSolutions;
-    this.describeSolutions = describeSolutions;
-  }
-  connect(ta2_url) {
-    console.log("Connect to:" + ta2_url);
-    let proto = properties.proto;
-    let client = new proto.Core(ta2_url, grpc.credentials.createInsecure());
-    properties.client = client;
-  }
-  setEvaluationConfig(evaluationConfig) {
-    properties.evaluationConfig = evaluationConfig;
-  }
-}
+exports.sessionVar = properties.dynamic.sessionVar;
 
-module.exports = Wrapper;
+// the chain
+exports.helloLoop = helloLoop;
+exports.searchSolutions = searchSolutions;
+exports.fitSolutions = fitSolutions;
+exports.produceSolutions = produceSolutions;
+exports.scoreSolutions = scoreSolutions;
+exports.exportFittedSolution = exportFittedSolution;
+exports.endSearchSolutions = endSearchSolutions;
+exports.describeSolutions = describeSolutions;
+
+exports.problemSetSerachSolutionRequest = problemSetSerachSolutionRequest;
+
+exports.connect = function(ta2_url) {
+  console.log("Connect to:" + ta2_url);
+  let proto = properties.static.proto;
+  let client = new proto.Core(ta2_url, grpc.credentials.createInsecure());
+  properties.dynamic.client = client;
+};
+
+exports.setEvaluationConfig = function(evaluationConfig) {
+  properties.evaluationConfig = evaluationConfig;
+};

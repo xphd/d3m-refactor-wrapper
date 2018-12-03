@@ -1,5 +1,5 @@
 const properties = require("../properties");
-const proto = properties.proto;
+const proto = properties.static.proto;
 
 const task_type_mappings = {
   undefined: proto.TaskType.TASK_TYPE_UNDEFINED,

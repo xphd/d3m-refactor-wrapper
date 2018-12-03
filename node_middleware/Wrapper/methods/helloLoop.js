@@ -1,13 +1,17 @@
 const fs = require("fs");
 const fse = require("fs-extra");
+const grpc = require("grpc");
 
+// import variables
 const properties = require("../properties");
-const proto = properties.proto;
-const sessionVar = properties.sessionVar;
+const static = properties.static;
+const dynamic = properties.dynamic;
+// static variables
+const proto = static.proto;
 
 helloLoop = function() {
-  console.log("helloLoop begin");
   // Added by Alex, for the purpose of Pipeline Visulization
+  console.log("helloLoop begin");
   let pathPrefix = "responses/";
   if (fs.existsSync(pathPrefix)) {
     console.log("Remove old responses folder!");
@@ -17,12 +21,21 @@ helloLoop = function() {
   fs.mkdirSync(pathPrefix);
 
   return new Promise(function(fulfill, reject) {
+    // const connectionString = dynamic.connectionString;
+    // console.log("connectionString:", connectionString);
+    // dynamic.client = new proto.Core(
+    //   connectionString,
+    //   grpc.credentials.createInsecure()
+    // );
+
     let request = new proto.HelloRequest();
     let waiting = false;
     setInterval(function() {
+      const sessionVar = dynamic.sessionVar;
       if (waiting || sessionVar.connected) return;
       waiting = true;
-      properties.client.Hello(request, function(err, response) {
+      const client = dynamic.client;
+      client.Hello(request, function(err, response) {
         if (err) {
           console.log("Error!Hello", err);
           sessionVar.connected = false;
@@ -31,10 +44,10 @@ helloLoop = function() {
           // reject(err);
         } else {
           sessionVar.connected = true;
-          console.log("Success!");
-          console.log("HelloResponse", response);
+          console.log("Success!Hello", response);
           sessionVar.ta2Ident = response;
           fulfill(sessionVar);
+
           // Added by Alex, for the purpose of Pipeline Visulization
           let pathPrefix = "responses/";
           let pathMid = "helloResponse";

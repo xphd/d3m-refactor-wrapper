@@ -1,16 +1,14 @@
-// produceSolutionResponse
-// getProduceSolutionResultsResponse
-
 const fs = require("fs");
+const appRoot = require("app-root-path");
+const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 // import variables
 const properties = require("../properties");
-const proto = properties.proto;
-// const attributes = require("../attributes");
-// const static = attributes.static;
-// const dynamic = attributes.dynamic;
+const static = properties.static;
+const dynamic = properties.dynamic;
 // proto
-// const proto = static.proto;
+const proto = static.proto;
+
 // import functions
 const handleImageUrl = require("../functions/handleImageUrl");
 
@@ -52,7 +50,6 @@ function produceSolution(solution, sessionVar) {
   let produceSolutionRequest = new proto.ProduceSolutionRequest();
   produceSolutionRequest.setFittedSolutionId(solution.fit.fitID);
   let dataset_input = new proto.Value();
-  const evaluationConfig = properties.evaluationConfig;
   dataset_input.setDatasetUri(
     "file://" + handleImageUrl(evaluationConfig.dataset_schema)
   );
@@ -66,30 +63,31 @@ function produceSolution(solution, sessionVar) {
   // leaving empty: repeated SolutionRunUser users = 5;
 
   return new Promise(function(fulfill, reject) {
-    properties.client.produceSolution(
-      produceSolutionRequest,
-      (err, produceSolutionResponse) => {
-        if (err) {
-          reject(err);
-        } else {
-          let produceSolutionRequestID = produceSolutionResponse.request_id;
-          getProduceSolutionResults(
-            solution,
-            produceSolutionRequestID,
-            fulfill,
-            reject
-          );
+    const client = dynamic.client;
+    client.produceSolution(produceSolutionRequest, function(
+      err,
+      produceSolutionResponse
+    ) {
+      if (err) {
+        reject(err);
+      } else {
+        let produceSolutionRequestID = produceSolutionResponse.request_id;
+        getProduceSolutionResults(
+          solution,
+          produceSolutionRequestID,
+          fulfill,
+          reject
+        );
 
-          // Added by Alex, for the purpose of Pipeline Visulization
-          let pathPrefix = "responses/produceSolutionResponses/";
-          let pathMid = produceSolutionRequestID;
-          let pathAffix = ".json";
-          let path = pathPrefix + pathMid + pathAffix;
-          let responseStr = JSON.stringify(produceSolutionResponse);
-          fs.writeFileSync(path, responseStr);
-        }
+        // Added by Alex, for the purpose of Pipeline Visulization
+        let pathPrefix = "responses/produceSolutionResponses/";
+        let pathMid = produceSolutionRequestID;
+        let pathAffix = ".json";
+        let path = pathPrefix + pathMid + pathAffix;
+        let responseStr = JSON.stringify(produceSolutionResponse);
+        fs.writeFileSync(path, responseStr);
       }
-    );
+    });
   });
 }
 
@@ -106,16 +104,16 @@ function getProduceSolutionResults(
   getProduceSolutionResultsRequest.setRequestId(produceSolutionRequestID);
 
   return new Promise(function(fulfill, reject) {
-    let call = properties.client.GetProduceSolutionResults(
+    const client = dynamic.client;
+    let call = client.GetProduceSolutionResults(
       getProduceSolutionResultsRequest
     );
-
     call.on("data", function(getProduceSolutionResultsResponse) {
       // console.log("getProduceSolutionResultsResponse", getProduceSolutionResultsResponse);
       if (getProduceSolutionResultsResponse.progress.state === "COMPLETED") {
         // fitting solution is finished
         let exposedOutputs = getProduceSolutionResultsResponse.exposed_outputs;
-        // console.log("PRODUCE SOLUTION COMPLETED", produceSolutionRequestID);
+        // console.log("PRODUCE SOLUTION COMPLETED", produceSolutionResponseID);
         // console.log("EXPOSED OUTPUTS", exposedOutputs);
         let steps = Object.keys(exposedOutputs);
         if (steps.length !== 1) {

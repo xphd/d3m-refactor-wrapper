@@ -1,8 +1,8 @@
 var jsonfile = require("jsonfile");
 
-// import attributes.static which includes static variables
-const attributes = require("./attributes");
-const static = attributes.static;
+// import properties.static which includes static variables
+const properties = require("./properties");
+const static = properties.static;
 // static var
 const proto = static.proto;
 const userAgentTA3 = static.userAgentTA3;
@@ -10,11 +10,11 @@ const grpcVersion = static.grpcVersion;
 const allowed_val_types = static.allowed_val_types;
 
 // import mappings
-const task_type_mappings = require("../mappings/task_type_mappings");
-const task_subtype_mappings = require("../mappings/task_subtype_mappings");
+const task_type_mappings = require("./mappings/task_type_mappings");
+const task_subtype_mappings = require("./mappings/task_subtype_mappings");
 
 // import getMappedType function
-const getMappedType = require("../functions/getMappedType");
+const getMappedType = require("./functions/getMappedType");
 
 problemSetSerachSolutionRequest = function(problemSet, dirPath) {
   var request = new proto.SearchSolutionsRequest();
