@@ -4,9 +4,7 @@ const app = express();
 var console = require("console");
 var fs = require("fs");
 
-const Wrapper = require("./Wrapper/Wrapper");
-
-const grpcClientWrapper = new Wrapper();
+const grpcClientWrapper = require("./Wrapper/Wrapper.js");
 
 const configFilePath = "./config_files/tufts_gt_wisc_configuration.json";
 
