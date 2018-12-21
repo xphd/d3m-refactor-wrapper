@@ -122,7 +122,8 @@ function scoreSolution(solution) {
 
         // Added by Alex, for the purpose of Pipeline Visulization
         let pathPrefix = "responses/scoreSolutionResponses/";
-        let pathMid = scoreRequestID;
+        // let pathMid = scoreRequestID;
+        let pathMid = solution.solutionID;
         let pathAffix = ".json";
         let path = pathPrefix + pathMid + pathAffix;
         let responseStr = JSON.stringify(scoreSolutionResponse);

@@ -70,7 +70,7 @@ function fitSolution(solution, sessionVar) {
 
         // Added by Alex, for the purpose of Pipeline Visulization
         let pathPrefix = "responses/fitSolutionResponses/";
-        let pathMid = fitSolutionResponseID;
+        let pathMid = solution.solutionID;
         let pathAffix = ".json";
         let path = pathPrefix + pathMid + pathAffix;
         let responseStr = JSON.stringify(fitSolutionResponse);
@@ -109,7 +109,7 @@ function getFitSolutionResults(
 
         // Added by Alex, for the purpose of Pipeline Visulization
         let pathPrefix = "responses/getFitSolutionResultsResponses/";
-        let pathMid = fitID;
+        let pathMid = solution.solutionID;
         let pathAffix = ".json";
         let path = pathPrefix + pathMid + pathAffix;
         let responseStr = JSON.stringify(getFitSolutionResultsResponse);

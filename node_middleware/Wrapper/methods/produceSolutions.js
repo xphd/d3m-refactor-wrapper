@@ -81,7 +81,8 @@ function produceSolution(solution, sessionVar) {
 
         // Added by Alex, for the purpose of Pipeline Visulization
         let pathPrefix = "responses/produceSolutionResponses/";
-        let pathMid = produceSolutionRequestID;
+        // let pathMid = produceSolutionRequestID;
+        let pathMid = solution.solutionID;
         let pathAffix = ".json";
         let path = pathPrefix + pathMid + pathAffix;
         let responseStr = JSON.stringify(produceSolutionResponse);
