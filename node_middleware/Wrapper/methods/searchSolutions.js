@@ -4,13 +4,11 @@ const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// static variables
-const proto = static.proto;
-const userAgentTA3 = static.userAgentTA3;
-const grpcVersion = static.grpcVersion;
-const allowed_val_types = static.allowed_val_types;
+const proto = properties.proto;
+
+const userAgentTA3 = properties.userAgentTA3;
+const grpcVersion = properties.grpcVersion;
+const allowed_val_types = properties.allowed_val_types;
 
 // import functions
 const getMappedType = require("../functions/getMappedType");
@@ -116,7 +114,7 @@ searchSolutions = function(sessionVar) {
     // console.log("REQUEST", JSON.stringify(request, null, 4));
 
     console.log("searchSolutions begin");
-    const client = dynamic.client;
+    const client = properties.client;
     client.searchSolutions(request, function(err, searchSolutionsResponse) {
       if (err) {
         console.log("Error!searchSolutions");
@@ -163,7 +161,7 @@ function getSearchSolutionResults(sessionVar, fulfill, reject) {
       */
     // setTimeout needs time in ms
     // }
-    const client = dynamic.client;
+    const client = properties.client;
     let call = client.getSearchSolutionsResults(
       getSearchSolutionsResultsRequest
     );

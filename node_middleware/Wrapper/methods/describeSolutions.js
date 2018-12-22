@@ -2,10 +2,7 @@ const fs = require("fs");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// static variables
-const proto = static.proto;
+const proto = properties.proto;
 
 describeSolutions = function(sessionVar) {
   console.log("describeSolutions called");
@@ -50,7 +47,7 @@ function describeSolution(solution) {
   }
 
   return new Promise(function(fulfill, reject) {
-    const client = dynamic.client;
+    const client = properties.client;
     client.describeSolution(describeSolutionRequest, function(
       err,
       describeSolutionResponse

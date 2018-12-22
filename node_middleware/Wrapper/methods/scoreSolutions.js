@@ -5,10 +5,7 @@ const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// proto
-const proto = static.proto;
+const proto = properties.proto;
 
 // import mappings
 const metric_mappings = require("../mappings/metric_mappings");
@@ -110,7 +107,7 @@ function scoreSolution(solution) {
   scoreSolutionRequest.setConfiguration(scoringConfiguration);
 
   return new Promise(function(fulfill, reject) {
-    const client = dynamic.client;
+    const client = properties.client;
     client.scoreSolution(scoreSolutionRequest, function(
       err,
       scoreSolutionResponse
@@ -140,7 +137,7 @@ function getScoreSolutionResults(solution, scoreRequestID, fulfill, reject) {
   let _reject = reject;
   let getScoreSolutionResultsRequest = new proto.GetScoreSolutionResultsRequest();
   getScoreSolutionResultsRequest.setRequestId(scoreRequestID);
-  const client = dynamic.client;
+  const client = properties.client;
   let call = client.getScoreSolutionResults(getScoreSolutionResultsRequest);
   call.on("data", function(getScoreSolutionResultsResponse) {
     if (getScoreSolutionResultsResponse.progress.state === "COMPLETED") {

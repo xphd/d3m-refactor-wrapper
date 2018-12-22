@@ -14,7 +14,7 @@ const properties = require("./properties");
 // const connect = require("./wrapper/connect");
 const problemSetSerachSolutionRequest = require("./problemSetSerachSolutionRequest");
 
-exports.sessionVar = properties.dynamic.sessionVar;
+exports.sessionVar = properties.sessionVar;
 
 // the chain
 exports.helloLoop = helloLoop;
@@ -30,9 +30,9 @@ exports.problemSetSerachSolutionRequest = problemSetSerachSolutionRequest;
 
 exports.connect = function(ta2_url) {
   console.log("Connect to:" + ta2_url);
-  let proto = properties.static.proto;
+  let proto = properties.proto;
   let client = new proto.Core(ta2_url, grpc.credentials.createInsecure());
-  properties.dynamic.client = client;
+  properties.client = client;
 };
 
 exports.setEvaluationConfig = function(evaluationConfig) {

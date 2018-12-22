@@ -1,13 +1,12 @@
 var jsonfile = require("jsonfile");
 
-// import properties.static which includes static variables
+// import properties (static)
 const properties = require("./properties");
-const static = properties.static;
-// static var
-const proto = static.proto;
-const userAgentTA3 = static.userAgentTA3;
-const grpcVersion = static.grpcVersion;
-const allowed_val_types = static.allowed_val_types;
+
+const proto = properties.proto;
+const userAgentTA3 = properties.userAgentTA3;
+const grpcVersion = properties.grpcVersion;
+const allowed_val_types = properties.allowed_val_types;
 
 // import mappings
 const task_type_mappings = require("./mappings/task_type_mappings");
