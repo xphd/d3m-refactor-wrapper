@@ -1,6 +1,5 @@
 const fs = require("fs");
 const fse = require("fs-extra");
-const grpc = require("grpc");
 
 // import variables
 const properties = require("../properties");
