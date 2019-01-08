@@ -2,10 +2,7 @@ const fs = require("fs");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// static variables
-const proto = static.proto;
+const proto = properties.proto;
 
 exportFittedSolution = function(sessionVar, solutionID) {
   console.log("export fitted solution", solutionID);
@@ -16,7 +13,7 @@ exportFittedSolution = function(sessionVar, solutionID) {
     sessionVar.solutions.get(solutionID).fit.fitID
   );
   solutionExportRequest.setRank(rank);
-  const client = dynamic.client;
+  const client = properties.client;
   client.solutionExport(solutionExportRequest, function(
     solutionExportResponse
   ) {

@@ -4,10 +4,7 @@ const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// proto
-const proto = static.proto;
+const proto = properties.proto;
 
 // import functions
 const handleImageUrl = require("../functions/handleImageUrl");
@@ -63,7 +60,7 @@ function produceSolution(solution, sessionVar) {
   // leaving empty: repeated SolutionRunUser users = 5;
 
   return new Promise(function(fulfill, reject) {
-    const client = dynamic.client;
+    const client = properties.client;
     client.produceSolution(produceSolutionRequest, function(
       err,
       produceSolutionResponse
@@ -105,7 +102,7 @@ function getProduceSolutionResults(
   getProduceSolutionResultsRequest.setRequestId(produceSolutionRequestID);
 
   return new Promise(function(fulfill, reject) {
-    const client = dynamic.client;
+    const client = properties.client;
     let call = client.GetProduceSolutionResults(
       getProduceSolutionResultsRequest
     );

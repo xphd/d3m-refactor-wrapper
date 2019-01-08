@@ -3,10 +3,7 @@ const fse = require("fs-extra");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// static variables
-const proto = static.proto;
+const proto = properties.proto;
 
 helloLoop = function() {
   // Added by Alex, for the purpose of Pipeline Visulization
@@ -30,10 +27,10 @@ helloLoop = function() {
     let request = new proto.HelloRequest();
     let waiting = false;
     setInterval(function() {
-      const sessionVar = dynamic.sessionVar;
+      const sessionVar = properties.sessionVar;
       if (waiting || sessionVar.connected) return;
       waiting = true;
-      const client = dynamic.client;
+      const client = properties.client;
       client.Hello(request, function(err, response) {
         if (err) {
           console.log("Error!Hello", err);

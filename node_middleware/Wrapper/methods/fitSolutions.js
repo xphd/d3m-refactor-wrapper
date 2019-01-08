@@ -4,10 +4,7 @@ const evaluationConfig = require(appRoot + "/tufts_gt_wisc_configuration.json");
 
 // import variables
 const properties = require("../properties");
-const static = properties.static;
-const dynamic = properties.dynamic;
-// static variables
-const proto = static.proto;
+const proto = properties.proto;
 
 // import functions
 const handleImageUrl = require("../functions/handleImageUrl");
@@ -60,7 +57,7 @@ function fitSolution(solution, sessionVar) {
   fitSolutionRequest.setExposeValueTypes([proto.ValueType.CSV_URI]);
   // leave empty: repeated SolutionRunUser users = 5;
   return new Promise(function(fulfill, reject) {
-    const client = dynamic.client;
+    const client = properties.client;
     client.fitSolution(fitSolutionRequest, function(err, fitSolutionResponse) {
       if (err) {
         reject(err);
@@ -92,7 +89,7 @@ function getFitSolutionResults(
   getFitSolutionResultsRequest.setRequestId(fitSolutionResponseID);
 
   return new Promise(function(fulfill, reject) {
-    const client = dynamic.client;
+    const client = properties.client;
     let call = client.getFitSolutionResults(getFitSolutionResultsRequest);
     call.on("data", function(getFitSolutionResultsResponse) {
       // console.log("getfitSolutionResultsResponse", getFitSolutionResultsResponse);
