@@ -17,13 +17,6 @@ helloLoop = function() {
   fs.mkdirSync(pathPrefix);
 
   return new Promise(function(fulfill, reject) {
-    // const connectionString = dynamic.connectionString;
-    // console.log("connectionString:", connectionString);
-    // dynamic.client = new proto.Core(
-    //   connectionString,
-    //   grpc.credentials.createInsecure()
-    // );
-
     let request = new proto.HelloRequest();
     let waiting = false;
     setInterval(function() {
