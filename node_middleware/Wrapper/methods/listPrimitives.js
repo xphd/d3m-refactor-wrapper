@@ -2,23 +2,19 @@
 const properties = require("../properties");
 const proto = properties.proto;
 
-listPrimitives = function() {
+function listPrimitives() {
+  console.log("listPrimitives.js");
   return new Promise(function(fulfill, reject) {
-    console.log("connectionString:", connectionString);
-    const connectionString = dynamic.connectionString;
-    const client = new proto.Core(
-      connectionString,
-      grpc.credentials.createInsecure()
-    );
-
-    dynamic.client = new proto.Core(
-      connectionString,
-      grpc.credentials.createInsecure()
-    );
-
+    const client = properties.client;
     let request = new proto.ListPrimitivesRequest();
-    client.listPrimitives(request, (error, response));
+    client.listPrimitives(request, (err, response) => {
+      if (err) {
+        console.log("Error!listPrimitives");
+      } else {
+        console.log(response);
+      }
+    });
   });
-};
+}
 
 module.exports = listPrimitives;

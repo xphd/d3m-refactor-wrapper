@@ -5,7 +5,7 @@ const fse = require("fs-extra");
 const properties = require("../properties");
 const proto = properties.proto;
 
-helloLoop = function() {
+function helloLoop() {
   // Added by Alex, for the purpose of Pipeline Visulization
   console.log("helloLoop begin");
   let pathPrefix = "responses/";
@@ -48,6 +48,6 @@ helloLoop = function() {
       });
     }, 10000);
   });
-};
+}
 
 module.exports = helloLoop;

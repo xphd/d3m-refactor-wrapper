@@ -10,6 +10,8 @@ const exportFittedSolution = require("./methods/exportFittedSolution");
 const endSearchSolutions = require("./methods/endSearchSolutions");
 const describeSolutions = require("./methods/describeSolutions");
 
+const listPrimitives = require("./methods/listPrimitives");
+
 const properties = require("./properties");
 // const connect = require("./wrapper/connect");
 const problemSetSerachSolutionRequest = require("./problemSetSerachSolutionRequest");
@@ -25,6 +27,8 @@ exports.scoreSolutions = scoreSolutions;
 exports.exportFittedSolution = exportFittedSolution;
 exports.endSearchSolutions = endSearchSolutions;
 exports.describeSolutions = describeSolutions;
+
+exports.listPrimitives = listPrimitives;
 
 exports.problemSetSerachSolutionRequest = problemSetSerachSolutionRequest;
 

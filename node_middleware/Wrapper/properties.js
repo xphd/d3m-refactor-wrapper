@@ -7,9 +7,11 @@ const properties = {
   // dynamic
   client: null,
   sessionVar: {
+    searchID: "",
+
     ta2Ident: null,
     connected: false,
-    solutions: new Map(),
+    solutions: null,
     //produceSolutionRequests: [],
     //solutionResults: [],
     // NIST eval plan: only ranks 1-20 are considered (lower is better)

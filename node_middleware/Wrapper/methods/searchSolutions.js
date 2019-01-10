@@ -22,7 +22,7 @@ const task_type_mappings = require("../mappings/task_type_mappings");
 
 const getSearchSolutionResults = require("./getSearchSolutionResults.js");
 
-searchSolutions = function(sessionVar) {
+function searchSolutions(sessionVar) {
   // remove old solutions
   sessionVar.solutions = new Map();
   const problemSchema = getProblemSchema();
@@ -117,7 +117,7 @@ searchSolutions = function(sessionVar) {
 
     console.log("searchSolutions begin");
     const client = properties.client;
-    client.searchSolutions(request, function(err, searchSolutionsResponse) {
+    client.searchSolutions(request, (err, searchSolutionsResponse) => {
       if (err) {
         console.log("Error!searchSolutions");
         // console.log(err);
@@ -135,6 +135,6 @@ searchSolutions = function(sessionVar) {
     });
     console.log("searchSolutions end");
   });
-};
+}
 
 module.exports = searchSolutions;
