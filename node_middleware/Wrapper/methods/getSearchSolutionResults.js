@@ -46,8 +46,10 @@ function getSearchSolutionResults(sessionVar, fulfill, reject) {
       // ignore of internal_score is NaN or 0 for nyu
       //      (getSearchSolutionsResultsResponse.internal_score)) {
       if (solutionID) {
-        let solution = { solutionID: solutionID };
+        let solution = { solutionID: solutionID, scores: {} };
         sessionVar.solutions.set(solution.solutionID, solution);
+
+        // console.log(sessionVar.solutions)
 
         // Added by Alex, for the purpose of Pipeline Visulization
         let pathPrefix = "responses/getSearchSolutionsResultsResponses/";
@@ -73,6 +75,7 @@ function getSearchSolutionResults(sessionVar, fulfill, reject) {
     });
     call.on("end", function(err) {
       console.log("End of result: getSearchSolutionResults");
+
       if (err) console.log("err is ", err);
       _fulfill(sessionVar);
     });

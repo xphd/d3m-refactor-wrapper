@@ -24,7 +24,7 @@ const getSearchSolutionResults = require("./getSearchSolutionResults.js");
 
 function searchSolutions(sessionVar) {
   // remove old solutions
-  sessionVar.solutions = new Map();
+  // sessionVar.solutions = new Map();
   const problemSchema = getProblemSchema();
   console.log(problemSchema.about.problemID);
   return new Promise(function(fulfill, reject) {

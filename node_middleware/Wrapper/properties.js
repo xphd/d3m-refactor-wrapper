@@ -11,7 +11,7 @@ const properties = {
 
     ta2Ident: null,
     connected: false,
-    solutions: null,
+    solutions: new Map(),
     //produceSolutionRequests: [],
     //solutionResults: [],
     // NIST eval plan: only ranks 1-20 are considered (lower is better)
